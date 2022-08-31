@@ -11,7 +11,11 @@ import "element-ui/lib/theme-chalk/index.css";
 Vue.use(echarts);
 Vue.use(dataV);
 Vue.use(ElementUI);
-Vue.use(VueCesium);
+Vue.use(VueCesium, {
+  cesiumPath: "https://unpkg.com/cesium@latest/Build/Cesium/Cesium.js",
+  accessToken:
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI2ZDJlZWZhOS1iY2I2LTRlOTEtOTliMi1kZjE2Zjk0Y2MzMmIiLCJpZCI6Mzc2NjMsImlhdCI6MTYwNTM1Njc0Nn0.eQo0bYPaaI4iFxUD83HcqsKxcdLU-6v9Q0nrITNaPJ0"
+});
 
 // 适配flex
 import "./common/flexible";

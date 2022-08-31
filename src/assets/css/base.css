@@ -235,18 +235,14 @@ a:hover {
   text-indent: 1em;
   outline: none;
 }
-.con_div {
-  height: 13vh;
-  width: 98%;
-  margin-left: 1%;
-}
-.con_div_text {
-  height: 80%;
+
+.con_item {
+  width: 7.67rem;
+  height: 1.2rem;
   background-color: #034c6a;
-  width: 32%;
   margin-right: 0.65%;
   margin-left: 0.65%;
-  margin-top: 8px;
+  margin-top: 0.15rem;
 }
 .con_div_text01 {
   width: 50%;

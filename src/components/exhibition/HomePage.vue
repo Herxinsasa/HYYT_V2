@@ -1,9 +1,9 @@
 <!-- 首页 -->
 <template>
-  <div id="container2">
+  <div id="hmPage">
     <!--数据总概-->
-    <div class="con_div">
-      <div class="con_div_text left">
+    <div id="con_div">
+      <div class="con_item">
         <div class="con_div_text01 left">
           <img src="../../assets/image/info_5.png" class="left text01_img" />
           <div class="left text01_div">
@@ -19,7 +19,7 @@
           </div>
         </div>
       </div>
-      <div class="con_div_text left">
+      <div class="con_item">
         <div class="con_div_text01 left">
           <img src="../../assets/image/info_5.png" class="left text01_img" />
           <div class="left text01_div">
@@ -35,7 +35,7 @@
           </div>
         </div>
       </div>
-      <div class="con_div_text left">
+      <div class="con_item">
         <div class="con_div_text01 left">
           <img src="../../assets/image/info_5.png" class="left text01_img" />
           <div class="left text01_div">
@@ -89,10 +89,11 @@
     </div>
   </div>
 </template>
+<script src="../../../static/Cesium/Cesium.js"></script>
 <script>
 import * as echarts from "echarts";
-// import Cesium from "cesium/Source/Cesium.js";
-// import "cesium/Source/Widgets/widgets.css";
+// import * as Cesium from "cesium";
+// import "cesium/Build/Cesium/Widgets/widgets.css";
 export default {
   data() {
     return {
@@ -103,7 +104,6 @@ export default {
 
   mounted: function() {
     this.drawCharts();
-    // 设置静态资源目录
     //加载地球
     var viewer = new Cesium.Viewer("viewer", {
       animation: false, //是否创建动画小器件，左下角仪表
@@ -122,6 +122,7 @@ export default {
           "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
       }) //arcgis基本基本地图加载
     });
+    viewer._cesiumWidget._creditContainer.style.display = "none";
 
     //相机起始位置
     viewer.camera.setView({
@@ -593,15 +594,18 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 @import url("../../assets/css/base.css");
 
-#container2 {
+#hmPage {
   background-color: #081832;
   height: 100%;
   width: 100%;
 }
-
+#con_div {
+  display: flex;
+  flex-wrap: nowrap;
+}
 #chartColumn {
   margin-top: 2.6vh;
   margin-left: 2vh;
