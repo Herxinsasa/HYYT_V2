@@ -8,14 +8,14 @@
           <img src="../../assets/image/info_5.png" class="left text01_img" />
           <div class="left text01_div">
             <p>2019年采点个数</p>
-            <p>452</p>
+            <p>{{ pickNum1 }}</p>
           </div>
         </div>
         <div class="con_div_text01 right">
           <img src="../../assets/image/info_5.png" class="left text01_img" />
           <div class="left text01_div">
             <p>2020年采点个数</p>
-            <p>456</p>
+            <p>{{ pickNum2 }}</p>
           </div>
         </div>
       </div>
@@ -24,14 +24,14 @@
           <img src="../../assets/image/info_5.png" class="left text01_img" />
           <div class="left text01_div">
             <p>选取样点个数</p>
-            <p class="sky">60</p>
+            <p class="sky">{{ chooseNum }}</p>
           </div>
         </div>
         <div class="con_div_text01 right">
           <img src="../../assets/image/info_5.png" class="left text01_img" />
           <div class="left text01_div">
             <p>勘察样点个数</p>
-            <p class="sky">3</p>
+            <p class="sky">{{ searchNum }}</p>
           </div>
         </div>
       </div>
@@ -40,14 +40,14 @@
           <img src="../../assets/image/info_5.png" class="left text01_img" />
           <div class="left text01_div">
             <p>一级样点个数</p>
-            <p class="org">10</p>
+            <p class="org" ref="lev1Num">{{ lev1Num }}</p>
           </div>
         </div>
         <div class="con_div_text01 right">
           <img src="../../assets/image/info_5.png" class="left text01_img" />
           <div class="left text01_div">
             <p>待处理个数</p>
-            <p class="org">7</p>
+            <p class="org">{{ processNum }}</p>
           </div>
         </div>
       </div>
@@ -72,7 +72,9 @@
             <img src="../../assets/image/title_2.png" />问题描述
           </div>
           <div class="car_content">
-            <p><span>暂无相关信息</span></p>
+            <p>
+              <span>{{ info }}</span>
+            </p>
           </div>
         </div>
       </div>
@@ -82,7 +84,7 @@
             <img src="../../assets/image/title_3.png" />变化信息
           </div>
           <div id="map_div">
-            <div id="viewer"></div>
+            <div id="mapV"></div>
           </div>
         </div>
       </div>
@@ -97,6 +99,21 @@ import * as echarts from "echarts";
 export default {
   data() {
     return {
+      //标头数据,调用接口修改数值
+      pickNum1: 452,
+      pickNum2: 456,
+      chooseNum: 60,
+      searchNum: 3,
+      lev1Num: 10,
+      lev2Num: 0,
+      processNum: 7,
+      info: "暂无相关公告......",
+      //统计数据变量,变化类别，变化类型，变化量，通过接口获取给图标传值
+      changeInfo: {
+        name: "",
+        type: "",
+        num: ""
+      },
       chartColumn: null,
       chartPie: null
     };
@@ -105,7 +122,7 @@ export default {
   mounted: function() {
     this.drawCharts();
     //加载地球
-    var viewer = new Cesium.Viewer("viewer", {
+    var mapV = new Cesium.Viewer("mapV", {
       animation: false, //是否创建动画小器件，左下角仪表
       timeline: false, //是否显示时间轴
       baseLayerPicker: false, //是否显示图层选择器
@@ -122,15 +139,15 @@ export default {
           "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
       }) //arcgis基本基本地图加载
     });
-    viewer._cesiumWidget._creditContainer.style.display = "none";
+    mapV._cesiumWidget._creditContainer.style.display = "none";
 
     //相机起始位置
-    viewer.camera.setView({
+    mapV.camera.setView({
       destination: Cesium.Cartesian3.fromDegrees(117.4, 40.05, 300000)
     });
 
     //加载影像
-    var imageryLayers = viewer.imageryLayers.addImageryProvider(
+    var imageryLayers = mapV.imageryLayers.addImageryProvider(
       new Cesium.UrlTemplateImageryProvider({
         url:
           "http://localhost:9000/image/917ec0404fda11eb90db7ffe09cd57bb/{z}/{x}/{y}"
@@ -138,7 +155,7 @@ export default {
     );
 
     //加载路网
-    var roadshp = viewer.imageryLayers.addImageryProvider(
+    var roadshp = mapV.imageryLayers.addImageryProvider(
       new Cesium.UrlTemplateImageryProvider({
         url:
           "http://t6.tianditu.com/DataServer?T=cia_w&x={x}&y={y}&l={z}&tk=6fac5d1bf8ff875eb0b340c8ea860a95"
@@ -194,7 +211,7 @@ export default {
         },
         properties: pbag
       });
-      viewer.entities.add(fentitie);
+      mapV.entities.add(fentitie);
 
       //获取多边形中心位置
       var polyPositions = fentitie.polygon.hierarchy.getValue(
@@ -209,7 +226,7 @@ export default {
         var digPin1 = Cesium.when(
           pinBuilder.fromMakiIconId("golf", Cesium.Color.RED, 48),
           function(canvas) {
-            return viewer.entities.add({
+            return mapV.entities.add({
               polyline: fentitie._polyline,
               polygon: fentitie._polygon,
               properties: fentitie._properties,
@@ -231,7 +248,7 @@ export default {
         var digPin3 = Cesium.when(
           pinBuilder.fromMakiIconId("golf", Cesium.Color.LIGHTGREEN, 48),
           function(canvas) {
-            return viewer.entities.add({
+            return mapV.entities.add({
               polyline: fentitie._polyline,
               polygon: fentitie._polygon,
               properties: fentitie._properties,
@@ -253,7 +270,7 @@ export default {
         var digPin2 = Cesium.when(
           pinBuilder.fromMakiIconId("golf", Cesium.Color.DODGERBLUE, 48),
           function(canvas) {
-            return viewer.entities.add({
+            return mapV.entities.add({
               polyline: fentitie._polyline,
               polygon: fentitie._polygon,
               properties: fentitie._properties,
@@ -290,9 +307,9 @@ export default {
       "</div>" +
       "</div>" +
       "</div>";
-    $("#viewer").append(infoDiv);
+    $("#mapV").append(infoDiv);
     //弹窗内容点击事件
-    var handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+    var handler = new Cesium.ScreenSpaceEventHandler(mapV.scene.canvas);
     handler.setInputAction(function(event) {
       //是否已经存在点亮
       if (previousPick.feature) {
@@ -303,7 +320,7 @@ export default {
       // 	previousPick.feature.show = previousPick.polygon;
       // 	previousPick.feature = undefined;
       // }
-      var pick = viewer.scene.pick(event.position); //pick选中的对象
+      var pick = mapV.scene.pick(event.position); //pick选中的对象
       //判断是否点击到模型
       if (pick && pick.id) {
         previousPick.feature = pick.id.polygon;
@@ -317,8 +334,8 @@ export default {
           lineOffset: new Cesium.Cartesian2(10, 100)
         });
 
-        var ellipsoid = viewer.scene.globe.ellipsoid;
-        var location = viewer.camera.pickEllipsoid(event.position, ellipsoid); //将笛卡尔坐标转换为地理坐标
+        var ellipsoid = mapV.scene.globe.ellipsoid;
+        var location = mapV.camera.pickEllipsoid(event.position, ellipsoid); //将笛卡尔坐标转换为地理坐标
         console.log("笛卡尔坐标:" + location);
         console.log(pick.id);
         $("#trackPopUp4").show(); //显示弹窗
@@ -366,7 +383,7 @@ export default {
         infoWindow(obj);
 
         function infoWindow(obj) {
-          var picked = viewer.scene.pick(obj.position);
+          var picked = mapV.scene.pick(obj.position);
           if (Cesium.defined(picked)) {
             var id = picked.id;
             if (id instanceof Cesium.Entity) {
@@ -603,24 +620,27 @@ export default {
   width: 100%;
 }
 #con_div {
+  margin-top: 0.3%;
   display: flex;
   flex-wrap: nowrap;
 }
 #chartColumn {
+  min-height: 100px;
   margin-top: 2.6vh;
   margin-left: 2vh;
-  width: 100%;
-  height: 100%;
+  width: 7.53rem;
+  height: 2.875rem;
 }
 
 #chartPie {
+  min-height: 100px;
   margin-top: 2.6vh;
   margin-left: 2vh;
-  width: 100%;
-  height: 100%;
+  width: 7.53rem;
+  height: 2.875rem;
 }
 
-#viewer {
+#mapV {
   width: 100%;
   height: 100%;
   padding: 2vh 3vh;

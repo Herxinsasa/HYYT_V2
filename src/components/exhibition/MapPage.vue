@@ -3,46 +3,48 @@
   <div id="cesiumContainer">
     <div id="viewer">
       <cesiumMeasure id="demo1" ref="measure"></cesiumMeasure>
-      <button @click="myFunction()" class="dropbtn">选择显示类型 ∨</button>
-      <div id="myDropdown" class="dropdown-content">
-        <!-- <a id="a1">全部显示</a> -->
-        <a id="a2">大型建筑工地</a>
-        <a id="a3">沙石囤积点</a>
-        <a id="a4">疑似货运源头</a>
-        <a id="a5">疑似开采点</a>
-        <!-- <a id="a6">全部隐藏</a> -->
-      </div>
-      <button @click="myFunction1()" class="dropbtn1">定位 ∨</button>
-      <div id="myDropdown1" class="dropdown-content1">
-        <a id="b1">起始位置</a>
-        <a id="b2">BH57</a>
-        <a id="b3">BH39</a>
-        <a id="b4">BH29</a>
-      </div>
-      <button @click="show6()" class="dropbtn4">量测</button>
-      <div class="Select">
-        <span class="text">范围 </span>
-        <input class="Box" id="V" type="checkbox" @change="show()" />
-      </div>
-      <div class="Select1">
-        <span class="text">地形 </span>
-        <input class="Box" id="T" type="checkbox" @change="show1()" />
-      </div>
-      <div class="Select2">
-        <span class="text">模型 </span>
-        <input class="Box" id="M" type="checkbox" @change="show2()" />
-      </div>
-      <div class="Select3">
-        <span class="text">影像 </span>
-        <input class="Box" id="P" type="checkbox" @change="show3()" />
-      </div>
-      <div class="Select4">
-        <span class="text">路网 </span>
-        <input class="Box" id="R" type="checkbox" @change="show4()" />
-      </div>
-      <div class="Select5">
-        <span class="text">轨迹 </span>
-        <input class="Box" id="B" type="checkbox" @change="show7()" />
+      <div id="but_div">
+        <button @click="myFunction()" class="dropbtn">选择显示类型 ∨</button>
+        <div id="myDropdown" class="dropdown-content">
+          <!-- <a id="a1">全部显示</a> -->
+          <a id="a2">大型建筑工地</a>
+          <a id="a3">沙石囤积点</a>
+          <a id="a4">疑似货运源头</a>
+          <a id="a5">疑似开采点</a>
+          <!-- <a id="a6">全部隐藏</a> -->
+        </div>
+        <button @click="myFunction1()" class="dropbtn1">定位 ∨</button>
+        <div id="myDropdown1" class="dropdown-content">
+          <a id="b1">起始位置</a>
+          <a id="b2">BH57</a>
+          <a id="b3">BH39</a>
+          <a id="b4">BH29</a>
+        </div>
+        <button @click="show6()" class="dropbtn4">量测</button>
+        <div class="Select">
+          <span class="text">范围 </span>
+          <input class="Box" id="V" type="checkbox" @change="show()" />
+        </div>
+        <div class="Select1">
+          <span class="text">地形 </span>
+          <input class="Box" id="T" type="checkbox" @change="show1()" />
+        </div>
+        <div class="Select2">
+          <span class="text">模型 </span>
+          <input class="Box" id="M" type="checkbox" @change="show2()" />
+        </div>
+        <div class="Select3">
+          <span class="text">影像 </span>
+          <input class="Box" id="P" type="checkbox" @change="show3()" />
+        </div>
+        <div class="Select4">
+          <span class="text">路网 </span>
+          <input class="Box" id="R" type="checkbox" @change="show4()" />
+        </div>
+        <div class="Select5">
+          <span class="text">轨迹 </span>
+          <input class="Box" id="B" type="checkbox" @change="show7()" />
+        </div>
       </div>
       <dv-border-box-8 :reverse="true" class="sidebar" v-if="showSliders">
         <div class="gcontent">
@@ -78,7 +80,7 @@
     </div>
   </div>
 </template>
-<script src="../../public/Cesium/Cesium.js"></script>
+<script src="../../../static/Cesium/Cesium.js"></script>
 <script>
 import $ from "jquery";
 // import { addToolbarMenu } from "../../assets/js/Sandcastle-header.js";
@@ -103,64 +105,60 @@ export default {
   mounted() {
     $("#demo1").hide();
     //加载Cesium地球影像
-    var viewer = new Cesium.Viewer("viewer", {
-      animation: false, //是否创建动画小器件，左下角仪表
-      timeline: false, //是否显示时间轴
-      baseLayerPicker: false, //是否显示图层选择器
-      fullscreenButton: false, //是否显示全屏按钮
-      geocoder: false, //是否显示geocoder小器件，右上角查询按钮
-      homeButton: false, //是否显示Home按钮
-      infoBox: false, //是否显示信息框
-      sceneModePicker: false, //是否显示3D/2D选择器
-      selectionIndicator: false, //是否显示选取指示器组件
-      navigationHelpButton: false, //是否显示右上角的帮助按钮
-      scene3DOnly: true, //如果设置为true，则所有几何图形以3D模式绘制以节约GPU资源
-      imageryProvider: new Cesium.ArcGisMapServerImageryProvider({
-        url:
-          "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
-      }) //arcgis基本基本地图加载
-    });
-
-    var viewer2019 = new Cesium.Viewer("viewer2019", {
-      animation: false, //是否创建动画小器件，左下角仪表
-      timeline: false, //是否显示时间轴
-      baseLayerPicker: false, //是否显示图层选择器
-      fullscreenButton: false, //是否显示全屏按钮
-      geocoder: false, //是否显示geocoder小器件，右上角查询按钮
-      homeButton: false, //是否显示Home按钮
-      infoBox: false, //是否显示信息框
-      sceneModePicker: false, //是否显示3D/2D选择器
-      selectionIndicator: false, //是否显示选取指示器组件
-      navigationHelpButton: false, //是否显示右上角的帮助按钮
-      scene3DOnly: true, //如果设置为true，则所有几何图形以3D模式绘制以节约GPU资源
-      imageryProvider: new Cesium.ArcGisMapServerImageryProvider({
-        url:
-          "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
-      }) //arcgis基本基本地图加载
-      // terrainProvider: new Cesium.EllipsoidTerrainProvider(), //地形图层提供者，仅baseLayerPicker设为false有意义
-      // terrainProvider: Cesium.createWorldTerrain(), //应用世界地形3D
-    });
-
-    var viewer2020 = new Cesium.Viewer("viewer2020", {
-      animation: false, //是否创建动画小器件，左下角仪表
-      timeline: false, //是否显示时间轴
-      baseLayerPicker: false, //是否显示图层选择器
-      fullscreenButton: false, //是否显示全屏按钮
-      geocoder: false, //是否显示geocoder小器件，右上角查询按钮
-      homeButton: false, //是否显示Home按钮
-      infoBox: false, //是否显示信息框
-      sceneModePicker: false, //是否显示3D/2D选择器
-      selectionIndicator: false, //是否显示选取指示器组件
-      navigationHelpButton: false, //是否显示右上角的帮助按钮
-      scene3DOnly: true, //如果设置为true，则所有几何图形以3D模式绘制以节约GPU资源
-      imageryProvider: new Cesium.ArcGisMapServerImageryProvider({
-        url:
-          "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
-      }) //arcgis基本基本地图加载
-      // terrainProvider: new Cesium.EllipsoidTerrainProvider(), //地形图层提供者，仅baseLayerPicker设为false有意义
-      // terrainProvider: Cesium.createWorldTerrain(),
-    }); //应用世界地形3D
-
+    // var viewer = new Cesium.Viewer("viewer", {
+    //   animation: false, //是否创建动画小器件，左下角仪表
+    //   timeline: false, //是否显示时间轴
+    //   baseLayerPicker: false, //是否显示图层选择器
+    //   fullscreenButton: false, //是否显示全屏按钮
+    //   geocoder: false, //是否显示geocoder小器件，右上角查询按钮
+    //   homeButton: false, //是否显示Home按钮
+    //   infoBox: false, //是否显示信息框
+    //   sceneModePicker: false, //是否显示3D/2D选择器
+    //   selectionIndicator: false, //是否显示选取指示器组件
+    //   navigationHelpButton: false, //是否显示右上角的帮助按钮
+    //   scene3DOnly: true, //如果设置为true，则所有几何图形以3D模式绘制以节约GPU资源
+    //   imageryProvider: new Cesium.ArcGisMapServerImageryProvider({
+    //     url:
+    //       "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+    //   }) //arcgis基本基本地图加载
+    // });
+    // viewer._cesiumWidget._creditContainer.style.display = "none";
+    // var viewer2019 = new Cesium.Viewer("viewer2019", {
+    //   animation: false, //是否创建动画小器件，左下角仪表
+    //   timeline: false, //是否显示时间轴
+    //   baseLayerPicker: false, //是否显示图层选择器
+    //   fullscreenButton: false, //是否显示全屏按钮
+    //   geocoder: false, //是否显示geocoder小器件，右上角查询按钮
+    //   homeButton: false, //是否显示Home按钮
+    //   infoBox: false, //是否显示信息框
+    //   sceneModePicker: false, //是否显示3D/2D选择器
+    //   selectionIndicator: false, //是否显示选取指示器组件
+    //   navigationHelpButton: false, //是否显示右上角的帮助按钮
+    //   scene3DOnly: true, //如果设置为true，则所有几何图形以3D模式绘制以节约GPU资源
+    //   imageryProvider: new Cesium.ArcGisMapServerImageryProvider({
+    //     url:
+    //       "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+    //   }) //arcgis基本基本地图加载
+    // });
+    // viewer2019._cesiumWidget._creditContainer.style.display = "none";
+    // var viewer2020 = new Cesium.Viewer("viewer2020", {
+    //   animation: false, //是否创建动画小器件，左下角仪表
+    //   timeline: false, //是否显示时间轴
+    //   baseLayerPicker: false, //是否显示图层选择器
+    //   fullscreenButton: false, //是否显示全屏按钮
+    //   geocoder: false, //是否显示geocoder小器件，右上角查询按钮
+    //   homeButton: false, //是否显示Home按钮
+    //   infoBox: false, //是否显示信息框
+    //   sceneModePicker: false, //是否显示3D/2D选择器
+    //   selectionIndicator: false, //是否显示选取指示器组件
+    //   navigationHelpButton: false, //是否显示右上角的帮助按钮
+    //   scene3DOnly: true, //如果设置为true，则所有几何图形以3D模式绘制以节约GPU资源
+    //   imageryProvider: new Cesium.ArcGisMapServerImageryProvider({
+    //     url:
+    //       "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+    //   }) //arcgis基本基本地图加载
+    // }); //应用世界地形3D
+    // viewer2020._cesiumWidget._creditContainer.style.display = "none";
     //挂载viewer减少卡顿
     window.viewer = viewer;
 
@@ -1930,7 +1928,35 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+@mixin button-style {
+  z-index: 4;
+  text-align: center;
+  font-size: 0.2rem;
+  width: 12vh;
+  position: absolute;
+  display: inline-block;
+  border: 1px solid #444;
+  color: #edffff;
+  fill: #edffff;
+  border-radius: 1vh;
+  background-color: rgb(40, 56, 79);
+  padding: 1vh 0px;
+}
+@mixin drop-style {
+  z-index: 4;
+  width: 15vh;
+  position: absolute;
+  display: inline-block;
+  border: 0.1vh solid #444;
+  color: #edffff;
+  fill: #edffff;
+  border-radius: 1vh;
+  cursor: pointer;
+  font-size: 0.2rem;
+  background-color: rgb(40, 56, 79);
+  padding: 1vh 0px;
+}
 #measurePanel[data-v-4d15eb8e] {
   position: absolute;
   background: rgb(40, 56, 79) !important;
@@ -2195,23 +2221,7 @@ export default {
 }
 
 /* 下拉框 */
-.dropbtn {
-  z-index: 4;
-  width: 15vh;
-  position: absolute;
-  display: inline-block;
-  border: 0.1vh solid #444;
-  color: #edffff;
-  fill: #edffff;
-  border-radius: 1vh;
-  padding: 1vh 0px;
-  margin: 1vh 41vw;
-  cursor: pointer;
-  font-size: 0.2rem;
-  background-color: rgb(40, 56, 79);
-}
-
-.dropdown-content {
+@mixin drop-con {
   width: 15vh;
   z-index: 4;
   display: none;
@@ -2221,10 +2231,19 @@ export default {
   fill: #edffff;
   border-radius: 1vh;
   padding: 1vh 0px;
-  margin: 5.5vh 41vw;
   cursor: pointer;
   font-size: 0.2rem;
   background-color: rgb(40, 56, 79);
+}
+.dropbtn {
+  @include drop-style;
+  margin: 1vh 41vw;
+}
+#myDropdown {
+  margin: 5.5vh 41vw;
+}
+.dropdown-content {
+  @include drop-con;
 }
 
 .dropdown-content a {
@@ -2250,56 +2269,11 @@ export default {
 
 /* 下拉框1 */
 .dropbtn1 {
-  z-index: 4;
-  width: 15vh;
-  position: absolute;
-  display: inline-block;
-  border: 0.1vh solid #444;
-  color: #edffff;
-  fill: #edffff;
-  border-radius: 1vh;
-  padding: 1vh 0px;
+  @include drop-style;
   margin: 1vh 49vw;
-  cursor: pointer;
-  font-size: 0.2rem;
-  background-color: rgb(40, 56, 79);
 }
-
-.dropdown-content1 {
-  width: 15vh;
-  z-index: 4;
-  display: none;
-  position: absolute;
-  border: 1px solid #444;
-  color: #edffff;
-  fill: #edffff;
-  border-radius: 1vh;
-  padding: 1vh 0px;
+#myDropdown1 {
   margin: 5.5vh 49vw;
-  cursor: pointer;
-  font-size: 0.2rem;
-  background-color: rgb(40, 56, 79);
-}
-
-.dropdown-content1 a {
-  color: white;
-  text-align: center;
-  padding: auto 16px;
-  text-decoration: none;
-  display: block;
-}
-
-.dropdown-content1 a:hover {
-  background-color: #f1f1f1;
-  color: black;
-}
-
-.dropdown1:hover .dropbtn1 {
-  color: #fff;
-  fill: #fff;
-  background: #48b;
-  border-color: #aef;
-  box-shadow: 0 0 8px #fff;
 }
 
 /* 下拉框2 */
@@ -2356,7 +2330,7 @@ export default {
   box-shadow: 0 0 8px #fff;
 }
 
-/* 下拉框4 */
+/* 量测工具栏 */
 .dropbtn4 {
   z-index: 4;
   width: 15vh;
@@ -2379,99 +2353,33 @@ export default {
 
 /* 选择框 */
 .Select {
-  z-index: 4;
-  text-align: center;
-  font-size: 0.2rem;
-  width: 12vh;
-  position: absolute;
-  display: inline-block;
-  border: 1px solid #444;
-  color: #edffff;
-  fill: #edffff;
-  border-radius: 1vh;
-  padding: 1vh 0px;
+  @include button-style;
   margin: 1vh 34.5vw;
-  background-color: rgb(40, 56, 79);
 }
 
 .Select1 {
-  z-index: 4;
-  text-align: center;
-  font-size: 0.2rem;
-  width: 12vh;
-  position: absolute;
-  display: inline-block;
-  border: 1px solid #444;
-  color: #edffff;
-  fill: #edffff;
-  border-radius: 1vh;
-  padding: 1vh 0px;
+  @include button-style;
   margin: 1vh 28vw;
-  background-color: rgb(40, 56, 79);
 }
 
 .Select2 {
-  z-index: 4;
-  text-align: center;
-  font-size: 0.2rem;
-  width: 12vh;
-  position: absolute;
-  display: inline-block;
-  border: 1px solid #444;
-  color: #edffff;
-  fill: #edffff;
-  border-radius: 1vh;
-  padding: 1vh 0px;
+  @include button-style;
   margin: 1vh 21.5vw;
-  background-color: rgb(40, 56, 79);
 }
 
 .Select3 {
-  z-index: 4;
-  text-align: center;
-  font-size: 0.2rem;
-  width: 12vh;
-  position: absolute;
-  display: inline-block;
-  border: 1px solid #444;
-  color: #edffff;
-  fill: #edffff;
-  border-radius: 1vh;
-  padding: 1vh 0px;
+  @include button-style;
   margin: 1vh 15vw;
-  background-color: rgb(40, 56, 79);
 }
 
 .Select4 {
-  z-index: 4;
-  text-align: center;
-  font-size: 0.2rem;
-  width: 12vh;
-  position: absolute;
-  display: inline-block;
-  border: 1px solid #444;
-  color: #edffff;
-  fill: #edffff;
-  border-radius: 1vh;
-  padding: 1vh 0px;
+  @include button-style;
   margin: 1vh 8.5vw;
-  background-color: rgb(40, 56, 79);
 }
 
 .Select5 {
-  z-index: 4;
-  text-align: center;
-  font-size: 0.2rem;
-  width: 12vh;
-  position: absolute;
-  display: inline-block;
-  border: 1px solid #444;
-  color: #edffff;
-  fill: #edffff;
-  border-radius: 1vh;
-  padding: 1vh 0px;
+  @include button-style;
   margin: 1vh 2vw;
-  background-color: rgb(40, 56, 79);
 }
 
 .Box {

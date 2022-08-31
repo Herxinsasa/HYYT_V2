@@ -58,7 +58,7 @@ const routes = [
         meta: {
           needLogin: false,
           hidden: false,
-          keepAlive: true,
+          keepAlive: true, //是否缓存页面
           title: "地图界面"
         }
       }

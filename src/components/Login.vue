@@ -1,7 +1,7 @@
 <template>
   <body id="log">
     <el-form class="login-container" label-position="left" label-width="0px">
-      <h3 class="login_title">环水保系统登录</h3>
+      <h3 class="login_title">货运源头三维信息平台</h3>
       <el-form-item>
         <el-input
           type="text"

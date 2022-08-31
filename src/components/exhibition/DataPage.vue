@@ -24,8 +24,10 @@
           <!-- 					<template slot="header">
 						<el-input v-model="search" size="mini" placeholder="输入编号" />
 					</template> -->
-          <template>
-            <el-button size="mini" @click="exportWord">导出</el-button>
+          <template slot-scope="scope">
+            <el-button size="mini" @click="exportWord(scope.row)"
+              >导出</el-button
+            >
           </template>
         </el-table-column>
       </el-table>
@@ -62,10 +64,10 @@ export default {
     };
   },
   mounted() {
+    //需要其他数据通过修改json或者生成新的json数据
     var Data = require("../../assets/json/BH2021.json");
     var that = this;
     Data.features.forEach(function(v) {
-      console.log(v);
       that.tableData.push(v.attributes);
     });
   },
@@ -84,10 +86,11 @@ export default {
       this.currentPage = val;
     },
     // 点击导出word
-    exportWord: function() {
+    exportWord: function(row) {
+      console.log(row);
       let that = this;
       // 读取并获得模板文件的二进制内容
-      JSZipUtils.getBinaryContent("/核查表 - 副本.docx", function(
+      JSZipUtils.getBinaryContent("../../static/checkRecord.docx", function(
         error,
         content
       ) {
@@ -103,7 +106,7 @@ export default {
         let doc = new docxtemplater().loadZip(zip);
         // 设置模板变量的值
         doc.setData({
-          table: that.tableData[29] //接口返回数据（word需要填充的真实数据）
+          table: row //接口返回数据（word需要填充的真实数据）
         });
 
         try {
@@ -139,9 +142,7 @@ export default {
 };
 </script>
 
-<style>
-@import url("../../assets/css/base.css");
-
+<style lang="scss">
 #container4 {
   /* background: url(../../assets/image/dataAdministration-back1.png); */
   background-color: #081832;
@@ -171,7 +172,9 @@ export default {
 	} */
 
 /* 	表头和背景色 */
-.el-table th,
+.el-table th {
+  background-color: #034c6a !important;
+}
 .el-table tr {
   background-color: #034c6a;
   max-height: 3vh;
