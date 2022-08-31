@@ -105,60 +105,60 @@ export default {
   mounted() {
     $("#demo1").hide();
     //加载Cesium地球影像
-    // var viewer = new Cesium.Viewer("viewer", {
-    //   animation: false, //是否创建动画小器件，左下角仪表
-    //   timeline: false, //是否显示时间轴
-    //   baseLayerPicker: false, //是否显示图层选择器
-    //   fullscreenButton: false, //是否显示全屏按钮
-    //   geocoder: false, //是否显示geocoder小器件，右上角查询按钮
-    //   homeButton: false, //是否显示Home按钮
-    //   infoBox: false, //是否显示信息框
-    //   sceneModePicker: false, //是否显示3D/2D选择器
-    //   selectionIndicator: false, //是否显示选取指示器组件
-    //   navigationHelpButton: false, //是否显示右上角的帮助按钮
-    //   scene3DOnly: true, //如果设置为true，则所有几何图形以3D模式绘制以节约GPU资源
-    //   imageryProvider: new Cesium.ArcGisMapServerImageryProvider({
-    //     url:
-    //       "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
-    //   }) //arcgis基本基本地图加载
-    // });
-    // viewer._cesiumWidget._creditContainer.style.display = "none";
-    // var viewer2019 = new Cesium.Viewer("viewer2019", {
-    //   animation: false, //是否创建动画小器件，左下角仪表
-    //   timeline: false, //是否显示时间轴
-    //   baseLayerPicker: false, //是否显示图层选择器
-    //   fullscreenButton: false, //是否显示全屏按钮
-    //   geocoder: false, //是否显示geocoder小器件，右上角查询按钮
-    //   homeButton: false, //是否显示Home按钮
-    //   infoBox: false, //是否显示信息框
-    //   sceneModePicker: false, //是否显示3D/2D选择器
-    //   selectionIndicator: false, //是否显示选取指示器组件
-    //   navigationHelpButton: false, //是否显示右上角的帮助按钮
-    //   scene3DOnly: true, //如果设置为true，则所有几何图形以3D模式绘制以节约GPU资源
-    //   imageryProvider: new Cesium.ArcGisMapServerImageryProvider({
-    //     url:
-    //       "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
-    //   }) //arcgis基本基本地图加载
-    // });
-    // viewer2019._cesiumWidget._creditContainer.style.display = "none";
-    // var viewer2020 = new Cesium.Viewer("viewer2020", {
-    //   animation: false, //是否创建动画小器件，左下角仪表
-    //   timeline: false, //是否显示时间轴
-    //   baseLayerPicker: false, //是否显示图层选择器
-    //   fullscreenButton: false, //是否显示全屏按钮
-    //   geocoder: false, //是否显示geocoder小器件，右上角查询按钮
-    //   homeButton: false, //是否显示Home按钮
-    //   infoBox: false, //是否显示信息框
-    //   sceneModePicker: false, //是否显示3D/2D选择器
-    //   selectionIndicator: false, //是否显示选取指示器组件
-    //   navigationHelpButton: false, //是否显示右上角的帮助按钮
-    //   scene3DOnly: true, //如果设置为true，则所有几何图形以3D模式绘制以节约GPU资源
-    //   imageryProvider: new Cesium.ArcGisMapServerImageryProvider({
-    //     url:
-    //       "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
-    //   }) //arcgis基本基本地图加载
-    // }); //应用世界地形3D
-    // viewer2020._cesiumWidget._creditContainer.style.display = "none";
+    var viewer = new Cesium.Viewer("viewer", {
+      animation: false, //是否创建动画小器件，左下角仪表
+      timeline: false, //是否显示时间轴
+      baseLayerPicker: false, //是否显示图层选择器
+      fullscreenButton: false, //是否显示全屏按钮
+      geocoder: false, //是否显示geocoder小器件，右上角查询按钮
+      homeButton: false, //是否显示Home按钮
+      infoBox: false, //是否显示信息框
+      sceneModePicker: false, //是否显示3D/2D选择器
+      selectionIndicator: false, //是否显示选取指示器组件
+      navigationHelpButton: false, //是否显示右上角的帮助按钮
+      scene3DOnly: true, //如果设置为true，则所有几何图形以3D模式绘制以节约GPU资源
+      imageryProvider: new Cesium.ArcGisMapServerImageryProvider({
+        url:
+          "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+      }) //arcgis基本基本地图加载
+    });
+    viewer._cesiumWidget._creditContainer.style.display = "none";
+    var viewer2019 = new Cesium.Viewer("viewer2019", {
+      animation: false, //是否创建动画小器件，左下角仪表
+      timeline: false, //是否显示时间轴
+      baseLayerPicker: false, //是否显示图层选择器
+      fullscreenButton: false, //是否显示全屏按钮
+      geocoder: false, //是否显示geocoder小器件，右上角查询按钮
+      homeButton: false, //是否显示Home按钮
+      infoBox: false, //是否显示信息框
+      sceneModePicker: false, //是否显示3D/2D选择器
+      selectionIndicator: false, //是否显示选取指示器组件
+      navigationHelpButton: false, //是否显示右上角的帮助按钮
+      scene3DOnly: true, //如果设置为true，则所有几何图形以3D模式绘制以节约GPU资源
+      imageryProvider: new Cesium.ArcGisMapServerImageryProvider({
+        url:
+          "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+      }) //arcgis基本基本地图加载
+    });
+    viewer2019._cesiumWidget._creditContainer.style.display = "none";
+    var viewer2020 = new Cesium.Viewer("viewer2020", {
+      animation: false, //是否创建动画小器件，左下角仪表
+      timeline: false, //是否显示时间轴
+      baseLayerPicker: false, //是否显示图层选择器
+      fullscreenButton: false, //是否显示全屏按钮
+      geocoder: false, //是否显示geocoder小器件，右上角查询按钮
+      homeButton: false, //是否显示Home按钮
+      infoBox: false, //是否显示信息框
+      sceneModePicker: false, //是否显示3D/2D选择器
+      selectionIndicator: false, //是否显示选取指示器组件
+      navigationHelpButton: false, //是否显示右上角的帮助按钮
+      scene3DOnly: true, //如果设置为true，则所有几何图形以3D模式绘制以节约GPU资源
+      imageryProvider: new Cesium.ArcGisMapServerImageryProvider({
+        url:
+          "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+      }) //arcgis基本基本地图加载
+    }); //应用世界地形3D
+    viewer2020._cesiumWidget._creditContainer.style.display = "none";
     //挂载viewer减少卡顿
     window.viewer = viewer;
 
@@ -1928,7 +1928,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @mixin button-style {
   z-index: 4;
   text-align: center;
@@ -2006,7 +2006,7 @@ export default {
   margin-top: 90px;
   position: absolute;
   text-align: center;
-  z-index: 4;
+  z-index: 666;
 }
 
 .leaflet-popup-close-button {
@@ -2048,7 +2048,7 @@ export default {
 /* 弹窗1 */
 .leaflet-popup1 {
   /* float: left; */
-  z-index: 4;
+  z-index: 999;
   margin-left: 66vw;
   margin-top: 12vh;
   position: absolute;

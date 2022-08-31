@@ -7,7 +7,8 @@ import dataV from "@jiaminghi/data-view";
 import ElementUI from "element-ui";
 import VueCesium from "vue-cesium";
 import "element-ui/lib/theme-chalk/index.css";
-
+// import cesiumMeasure from 'cesium-measure';
+// Vue.use(cesiumMeasure);
 Vue.use(echarts);
 Vue.use(dataV);
 Vue.use(ElementUI);
